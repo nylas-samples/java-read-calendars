@@ -1,33 +1,22 @@
-//Import Java Utilities
-import java.io.IOException;
+// Import Nylas packages
+import com.nylas.NylasClient;
+
+// Import DotEnv to handle .env files
+import com.nylas.models.*;
+import io.github.cdimascio.dotenv.Dotenv;
+
 import java.util.List;
 
-//Import Nylas Packages
-import com.nylas.*;
-
-//Import DotEnv to handle .env files
-import io.github.cdimascio.dotenv.Dotenv;
-import io.github.cdimascio.dotenv.DotenvException;
-
-//Import DotEnv to handle .env files
-import io.github.cdimascio.dotenv.Dotenv;
-import io.github.cdimascio.dotenv.DotenvException;
-
-public class ReadCalendars {
-    public static void main(String[] args) throws RequestFailedException, IOException {
+public class read_calendars {
+    public static void main(String[] args) throws NylasSdkTimeoutError, NylasApiError {
+        // Load the .env file
         Dotenv dotenv = Dotenv.load();
-        // Create the client object
-        NylasClient client = new NylasClient();
-        // Connect it to Nylas using the Access Token from the .env file
-        NylasAccount account = client.account(dotenv.get("ACCESS_TOKEN"));
-
-        // Access the Calendars endpoint
-        Calendars calendars = account.calendars();
-        // Read all calendars
-        RemoteCollection<Calendar> calendar_list = calendars.list();
-
-        // Loop through calendars
-        for (Calendar calendar : calendar_list){
+        // Initialize the Nylas client
+        NylasClient nylas = new NylasClient.Builder(dotenv.get("V3_TOKEN")).apiUri(dotenv.get("NYLAS_API_SERVER")).build();
+        // Build the event parameters
+        ListCalendersQueryParams listCalendersQueryParams = new ListCalendersQueryParams();
+        List<Calendar> calendars = nylas.calendars().list(dotenv.get("CALENDAR_ID"), listCalendersQueryParams).getData();
+        for (Calendar calendar : calendars){
             System.out.println("Id: " + calendar.getId() +
                                " | Name: " + calendar.getName() +
                                " | Description: " + calendar.getDescription());

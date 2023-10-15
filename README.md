@@ -1,8 +1,6 @@
 # java-read-calendars
 
-This sample will show you to read calendars using the Nylas Java SDK.
-
-## Setup
+This sample will show you to read your calendars Nylas Java SDK.
 
 ### System dependencies
 
@@ -14,7 +12,9 @@ This sample will show you to read calendars using the Nylas Java SDK.
 You'll need the following values:
 
 ```text
-ACCESS_TOKEN = ""
+V3_TOKEN = ""
+NYLAS_API_SERVER = ""
+CALENDAR_ID = ""
 ```
 
 Add the above values to a new `.env` file:
@@ -27,8 +27,8 @@ $ touch .env # Then add your env variables
 
 ```bash
 org.slf4j / slf4j-simple / 1.7.25
-com.nylas.sdk / nylas-java-sdk / 1.15.0
-io.github.cdimascio / dotenv-java / 2.2.4
+com.nylas.java / nylas_java / 2.0.0
+io.github.cdimascio / dotenv-java / 2.3.2
 ```
 
 # Compilation
@@ -44,13 +44,7 @@ mvn clean compile
 Run the application using the `maven` command:
 
 ```bash
-$ mvn exec:java -Dexec.mainClass="ReadCalendars"
+$ mvn exec:java -Dexec.mainClass="read_calendars"
 ```
 
-If successful, all your calendars will be displayed.
-
-
-## Learn more
-
-Read the blog post [How to Manage Calendar Events with the Nylas Java SDK](https://www.nylas.com/blog/how-to-manage-calendar-events-with-the-nylas-java-sdk-dev/)
-Visit our [Nylas Java SDK documentation](https://developer.nylas.com/docs/developer-tools/sdk/java-sdk/) to learn more.
+If successful, your calendars will be displayed.
